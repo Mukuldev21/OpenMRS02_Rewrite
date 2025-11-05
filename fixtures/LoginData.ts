@@ -12,7 +12,7 @@ export const loginData = {
         location: "Inpatient Ward"
     },
     errorMessages: {
-        invalidCredentials: "Invalid username or password. Invalid username/password. Please try again. try again.",
+        invalidCredentials: "Invalid username/password. Please try again",
         locationRequired: "You must choose a location!"
     },
     sessionLocations: [

@@ -31,8 +31,8 @@ test.describe('Login Tests', () => {
         await loginPage.assertErrorMessage(errorMessages.invalidCredentials);
     });
     test('Login without selecting session location', async () => {
-        await loginPage.login(validUser.username, validUser.password, "");
-        await loginPage.errorMessage.isVisible();
+        await loginPage.loginWithoutLocation(validUser.username, validUser.password);
+        await loginPage.errorMessageSessionLocationSelect.isVisible();
         await loginPage.assertSessionLocationError(errorMessages.locationRequired);
     });
 
