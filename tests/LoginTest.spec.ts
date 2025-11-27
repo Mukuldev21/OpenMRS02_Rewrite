@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { loginData } from '../fixtures/LoginData';
 import { HomePage } from '../pages/HomePage';
@@ -23,24 +23,34 @@ test.describe('Login Tests', () => {
 
     test.describe("Login Functionality", () => {
 
-        test('Successful login', async () => {
+        test('TC-A.1: Successful Login', async () => {
             await loginPage.login(validUser.username, validUser.password, validUser.location);
             homePage = new HomePage(loginPage.page);
             await homePage.verifyHomePage();
         });
 
-        test('Unsuccessful login', async () => {
+        test('TC-A.2: Invalid Credential Login', async () => {
             await loginPage.login(invalidUser.username, invalidUser.password, invalidUser.location);
             await loginPage.errorMessage.isVisible();
             await loginPage.assertErrorMessage(errorMessages.invalidCredentials);
         });
-        test('Login without selecting session location', async () => {
+
+        test('TC-A.3: Logout Functionality', async () => {
+            await loginPage.login(validUser.username, validUser.password, validUser.location);
+            homePage = new HomePage(loginPage.page);
+            await homePage.verifyHomePage();
+
+            await homePage.logoutButton.click();
+            await expect(loginPage.page).toHaveTitle("Login");
+            await expect(loginPage.loginButton).toBeVisible();
+        });
+        test('TC-A.4: Login without selecting session location', async () => {
             await loginPage.loginWithoutLocation(validUser.username, validUser.password);
             await loginPage.errorMessageSessionLocationSelect.isVisible();
             await loginPage.assertSessionLocationError(errorMessages.locationRequired);
         });
 
-        test('Verify session locations', async () => {
+        test('TC-A.5: Verify session locations', async () => {
             await loginPage.verifySessionLocations(sessionLocations);
         });
 
