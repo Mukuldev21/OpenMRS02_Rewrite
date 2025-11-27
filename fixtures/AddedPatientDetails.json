@@ -1,0 +1,36 @@
+{
+  "Patient01": {
+    "patientId": "100JPV",
+    "givenName": "Sarah",
+    "middleName": "PpFlm",
+    "familyName": "Anderson",
+    "gender": "F",
+    "birthDay": "6",
+    "birthMonth": "8",
+    "birthYear": "1997",
+    "address1": "868 GvQRMp St",
+    "address2": "Apt 24",
+    "city": "New York",
+    "state": "MX",
+    "country": "USA",
+    "postalCode": "25143",
+    "phoneNumber": "40356013"
+  },
+  "Patient02": {
+    "patientId": "100JRT",
+    "givenName": "William",
+    "middleName": "ieUIw",
+    "familyName": "Miller",
+    "gender": "F",
+    "birthDay": "16",
+    "birthMonth": "6",
+    "birthYear": "1976",
+    "address1": "411 rGgrcq St",
+    "address2": "Apt 4",
+    "city": "Los Angeles",
+    "state": "VR",
+    "country": "USA",
+    "postalCode": "63247",
+    "phoneNumber": "59727728"
+  }
+}
