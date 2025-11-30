@@ -34,6 +34,25 @@ This repository contains end-to-end (E2E) tests for the OpenMRS02 application us
     npx playwright show-report
     ```
 
+## Running Custom Tests
+
+You can run tests for specific modules or individual test cases using the custom runner script.
+
+**Run tests for a specific module:**
+```sh
+node run-tests.js --module "Module B"
+```
+*Available Modules: Module A (Login), Module B (Patient Registration), Module C (Home Page)*
+
+**Run a specific test case by ID:**
+```sh
+node run-tests.js --test "TC-B.2"
+```
+
+## Test Cases
+
+Detailed test scenarios and their steps are documented in [testcases.md](testcases.md).
+
 ## Continuous Integration
 
 Tests are automatically run on push and pull requests to `main` or `master` via [GitHub Actions workflow](.github/workflows/playwright.yml).
