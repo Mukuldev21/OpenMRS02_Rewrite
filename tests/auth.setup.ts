@@ -7,6 +7,7 @@ import fs from 'fs';
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 setup('authenticate', async ({ page }) => {
+    setup.info().annotations.push({ type: 'Module', description: 'Authentication' });
     // Ensure directory exists
     const authDir = path.dirname(authFile);
     if (!fs.existsSync(authDir)) {

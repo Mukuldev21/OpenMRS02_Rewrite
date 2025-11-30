@@ -5,7 +5,7 @@ class CustomReporter implements Reporter {
 
     onBegin(config: FullConfig, suite: Suite) {
         this.startTime = Date.now();
-        console.log(`\n🚀 Starting test suite execution...`);
+        console.log(`\n🚀 Starting OpenMRS02 E2E test suite execution...`);
         console.log(`📋 Total tests to run: ${suite.allTests().length}\n`);
     }
 

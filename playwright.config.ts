@@ -22,7 +22,14 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html'], ['./custom-reporter.ts']],
+  reporter: [['html', { open: 'never' }], ['./custom-reporter.ts']],
+
+  /* Global metadata for the report */
+  metadata: {
+    'Project': 'OpenMRS Rewrite',
+    'Environment': 'QA',
+    'Type': 'E2E Regression'
+  },
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
