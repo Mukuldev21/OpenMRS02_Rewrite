@@ -160,4 +160,15 @@ export class RegisterPatientPage {
         await this.personNameInput.fill(personName);
         await this.nextButton.click();
     }
+
+    async verifyNavigationSections() {
+        const breadcrumb = this.page.locator('#formBreadcrumb');
+        await expect(breadcrumb.getByText('Name')).toBeVisible();
+        await expect(breadcrumb.getByText('Gender')).toBeVisible();
+        await expect(breadcrumb.getByText('Birthdate')).toBeVisible();
+        await expect(breadcrumb.getByText('Address')).toBeVisible();
+        await expect(breadcrumb.getByText('Phone Number')).toBeVisible();
+        await expect(breadcrumb.getByText('Relatives')).toBeVisible();
+        await expect(this.page.locator('#confirmation_label')).toBeVisible();
+    }
 }
