@@ -32,5 +32,22 @@
     "country": "USA",
     "postalCode": "63247",
     "phoneNumber": "59727728"
+  },
+  "Patient03": {
+    "patientId": "100HRU",
+    "givenName": "Thomas",
+    "middleName": "LWlnO",
+    "familyName": "Wilson",
+    "gender": "M",
+    "birthDay": "18",
+    "birthMonth": "8",
+    "birthYear": "1988",
+    "address1": "965 yegJtu St",
+    "address2": "Apt 45",
+    "city": "Houston",
+    "state": "XC",
+    "country": "USA",
+    "postalCode": "99155",
+    "phoneNumber": "56012559"
   }
 }

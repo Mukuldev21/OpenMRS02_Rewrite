@@ -39,14 +39,15 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
     },
     {
-      name: 'chromium',
+      name: 'OpenMRS02 E2E Tests - Chrome',
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     },
-
+    // Only chrome required for now
+    /*
     {
       name: 'firefox',
       use: {
@@ -64,7 +65,7 @@ export default defineConfig({
       },
       dependencies: ['setup'],
     },
-
+    */
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
