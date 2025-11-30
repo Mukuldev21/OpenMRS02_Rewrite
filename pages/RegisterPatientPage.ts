@@ -21,6 +21,12 @@ export class RegisterPatientPage {
     readonly confirmButton: Locator;
     readonly patientIdContainer: Locator;
 
+    // Validation Error Locators
+    readonly givenNameError: Locator;
+    readonly familyNameError: Locator;
+    readonly genderError: Locator;
+    readonly birthdateError: Locator;
+
     constructor(page: Page) {
         this.page = page;
         // Use a partial match or exact: false to handle the icon potentially missing or being different
@@ -41,7 +47,22 @@ export class RegisterPatientPage {
         this.postalCodeInput = page.locator('#postalCode');
         this.phoneNumberInput = page.getByRole('textbox', { name: 'What\'s the patient phone' });
         this.confirmButton = page.getByRole('button', { name: 'Confirm' });
+        this.confirmButton = page.getByRole('button', { name: 'Confirm' });
         this.patientIdContainer = page.locator('div').filter({ hasText: 'Patient ID' }).nth(3);
+
+        // Initialize Validation Error Locators
+        // These are based on the "Required" text appearing next to fields
+        this.givenNameError = page.locator('.field-error').filter({ hasText: 'Required' }).first();
+        // Note: The specific selector might need adjustment if multiple "Required" texts appear. 
+        // Based on exploration, they are siblings or near the inputs. 
+        // Let's use more specific relative locators if possible, or rely on order if they appear sequentially.
+        // Actually, let's try to be more specific based on the input field association if possible, 
+        // but for now, generic "Required" text visibility in the active section is a good start.
+        // A better approach for "Required" messages that are just text nodes or spans:
+        this.givenNameError = page.locator('span.field-error').filter({ hasText: 'Required' }).first();
+        this.familyNameError = page.locator('span.field-error').filter({ hasText: 'Required' }).nth(1); // Assuming second one if both trigger
+        this.genderError = page.locator('span.field-error').filter({ hasText: 'Required' });
+        this.birthdateError = page.locator('span.field-error').filter({ hasText: 'Required' });
     }
 
     async startRegistration() {
@@ -113,5 +134,18 @@ export class RegisterPatientPage {
         // Wait for it to be attached and visible
         await idLocator.waitFor({ state: 'visible', timeout: 10000 });
         return await idLocator.innerText();
+    }
+
+    async verifyNameValidationErrors() {
+        await expect(this.givenNameError).toBeVisible();
+        await expect(this.familyNameError).toBeVisible();
+    }
+
+    async verifyGenderValidationError() {
+        await expect(this.genderError).toBeVisible();
+    }
+
+    async verifyBirthdateValidationError() {
+        await expect(this.birthdateError).toBeVisible();
     }
 }
