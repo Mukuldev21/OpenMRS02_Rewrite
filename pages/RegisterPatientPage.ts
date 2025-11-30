@@ -3,6 +3,7 @@ import { Page, Locator, expect } from '@playwright/test';
 export class RegisterPatientPage {
     readonly page: Page;
     readonly registerPatientLink: Locator;
+    readonly unidentifiedPatientCheckbox: Locator;
     readonly givenNameInput: Locator;
     readonly middleNameInput: Locator;
     readonly familyNameInput: Locator;
@@ -31,6 +32,7 @@ export class RegisterPatientPage {
         this.page = page;
         // Use a partial match or exact: false to handle the icon potentially missing or being different
         this.registerPatientLink = page.getByRole('link', { name: 'Register a patient', exact: false });
+        this.unidentifiedPatientCheckbox = page.locator('#checkbox-unknown-patient');
         this.givenNameInput = page.getByRole('textbox', { name: 'Given (required)' });
         this.middleNameInput = page.getByRole('textbox', { name: 'Middle' });
         this.familyNameInput = page.getByRole('textbox', { name: 'Family Name (required)' });
@@ -147,5 +149,9 @@ export class RegisterPatientPage {
 
     async verifyBirthdateValidationError() {
         await expect(this.birthdateError).toBeVisible();
+    }
+
+    async clickUnidentifiedPatient() {
+        await this.unidentifiedPatientCheckbox.click();
     }
 }
