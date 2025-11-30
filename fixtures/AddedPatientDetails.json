@@ -117,5 +117,39 @@
     "country": "USA",
     "postalCode": "34581",
     "phoneNumber": "29013698"
+  },
+  "Patient08": {
+    "patientId": "100JDJ",
+    "givenName": "Michael",
+    "middleName": "gJxRa",
+    "familyName": "Garcia",
+    "gender": "M",
+    "birthDay": "27",
+    "birthMonth": "12",
+    "birthYear": "1974",
+    "address1": "148 JurpvR St",
+    "address2": "Apt 70",
+    "city": "New York",
+    "state": "OR",
+    "country": "USA",
+    "postalCode": "80283",
+    "phoneNumber": "38543872"
+  },
+  "Patient09": {
+    "patientId": "100JGA",
+    "givenName": "Linda",
+    "middleName": "RMkVE",
+    "familyName": "Martinez",
+    "gender": "M",
+    "birthDay": "17",
+    "birthMonth": "10",
+    "birthYear": "2012",
+    "address1": "702 CvKlFL St",
+    "address2": "Apt 5",
+    "city": "Houston",
+    "state": "DD",
+    "country": "USA",
+    "postalCode": "11229",
+    "phoneNumber": "30719020"
   }
 }
