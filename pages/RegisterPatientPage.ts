@@ -39,7 +39,7 @@ export class RegisterPatientPage {
         this.givenNameInput = page.getByRole('textbox', { name: 'Given (required)' });
         this.middleNameInput = page.getByRole('textbox', { name: 'Middle' });
         this.familyNameInput = page.getByRole('textbox', { name: 'Family Name (required)' });
-        this.nextButton = page.getByRole('button', { name: '' });
+        this.nextButton = page.locator('#next-button');
         this.genderSelect = page.getByLabel('What\'s the patient\'s gender');
         this.birthDayInput = page.getByRole('textbox', { name: 'Day (required)' });
         this.birthMonthSelect = page.getByLabel('Month (required)');
@@ -156,15 +156,8 @@ export class RegisterPatientPage {
     }
 
     async addRelationship(relationshipType: string, personName: string) {
-        console.log('Adding relationship...');
         await this.relationshipTypeSelect.selectOption({ label: relationshipType });
         await this.personNameInput.fill(personName);
-        await this.page.waitForTimeout(1000); // Short wait for any internal processing
-        await this.personNameInput.press('ArrowDown');
-        await this.personNameInput.press('Enter');
-        await this.page.waitForTimeout(1000); // Wait for selection to settle
-        await this.nextButton.waitFor({ state: 'visible', timeout: 5000 });
-        await this.nextButton.click({ force: true });
-        console.log('Relationship added.');
+        await this.nextButton.click();
     }
 }
