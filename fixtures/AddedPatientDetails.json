@@ -49,5 +49,22 @@
     "country": "USA",
     "postalCode": "99155",
     "phoneNumber": "56012559"
+  },
+  "Patient04": {
+    "patientId": "100HUN",
+    "givenName": "Barbara",
+    "middleName": "oOEFw",
+    "familyName": "Taylor",
+    "gender": "F",
+    "birthDay": "19",
+    "birthMonth": "2",
+    "birthYear": "1975",
+    "address1": "929 OqpVJZ St",
+    "address2": "Apt 55",
+    "city": "Dallas",
+    "state": "OS",
+    "country": "USA",
+    "postalCode": "92477",
+    "phoneNumber": "95295938"
   }
 }
