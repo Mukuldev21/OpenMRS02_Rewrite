@@ -22,6 +22,10 @@ export class RegisterPatientPage {
     readonly confirmButton: Locator;
     readonly patientIdContainer: Locator;
 
+    // Relationship Locators
+    readonly relationshipTypeSelect: Locator;
+    readonly personNameInput: Locator;
+
     // Validation Error Locators
     readonly givenNameError: Locator;
     readonly familyNameError: Locator;
@@ -30,7 +34,6 @@ export class RegisterPatientPage {
 
     constructor(page: Page) {
         this.page = page;
-        // Use a partial match or exact: false to handle the icon potentially missing or being different
         this.registerPatientLink = page.getByRole('link', { name: 'Register a patient', exact: false });
         this.unidentifiedPatientCheckbox = page.locator('#checkbox-unknown-patient');
         this.givenNameInput = page.getByRole('textbox', { name: 'Given (required)' });
@@ -49,20 +52,15 @@ export class RegisterPatientPage {
         this.postalCodeInput = page.locator('#postalCode');
         this.phoneNumberInput = page.getByRole('textbox', { name: 'What\'s the patient phone' });
         this.confirmButton = page.getByRole('button', { name: 'Confirm' });
-        this.confirmButton = page.getByRole('button', { name: 'Confirm' });
         this.patientIdContainer = page.locator('div').filter({ hasText: 'Patient ID' }).nth(3);
 
-        // Initialize Validation Error Locators
-        // These are based on the "Required" text appearing next to fields
-        this.givenNameError = page.locator('.field-error').filter({ hasText: 'Required' }).first();
-        // Note: The specific selector might need adjustment if multiple "Required" texts appear. 
-        // Based on exploration, they are siblings or near the inputs. 
-        // Let's use more specific relative locators if possible, or rely on order if they appear sequentially.
-        // Actually, let's try to be more specific based on the input field association if possible, 
-        // but for now, generic "Required" text visibility in the active section is a good start.
-        // A better approach for "Required" messages that are just text nodes or spans:
+        // Relationship Locators
+        this.relationshipTypeSelect = page.locator('#relationship_type');
+        this.personNameInput = page.getByPlaceholder('Person Name');
+
+        // Validation Error Locators
         this.givenNameError = page.locator('span.field-error').filter({ hasText: 'Required' }).first();
-        this.familyNameError = page.locator('span.field-error').filter({ hasText: 'Required' }).nth(1); // Assuming second one if both trigger
+        this.familyNameError = page.locator('span.field-error').filter({ hasText: 'Required' }).nth(1);
         this.genderError = page.locator('span.field-error').filter({ hasText: 'Required' });
         this.birthdateError = page.locator('span.field-error').filter({ hasText: 'Required' });
     }
@@ -107,33 +105,22 @@ export class RegisterPatientPage {
     }
 
     async confirmRegistration() {
-        // Wait for the confirmation page to be visible
         await expect(this.page.getByText('Confirm submission?')).toBeVisible();
         await this.confirmButton.click();
-        // Wait for the button to disappear, indicating navigation or submission
         await expect(this.confirmButton).toBeHidden();
     }
 
     async verifyPatientRegistered(given: string, family: string) {
-        // Wait for the patient dashboard to load by checking for a common element like the 'General Actions' or 'Visits'
         await expect(this.page.getByText('General Actions')).toBeVisible({ timeout: 30000 });
-
-        // Check for Patient ID by trying to extract it
         const patientId = await this.getPatientId();
         expect(patientId).toBeTruthy();
         console.log(`Verified Patient ID: ${patientId}`);
-
-        // Verify the name using specific locators provided by the user
         await expect(this.page.locator('.PersonName-givenName')).toHaveText(given);
         await expect(this.page.locator('.PersonName-familyName')).toHaveText(family);
     }
 
     async getPatientId(): Promise<string> {
-        // Locate the element containing the ID based on user provided HTML:
-        // <div class="identifiers ..."> <div class="float-sm-right"> <em>Patient ID</em> <span>100HWJ</span> </div> </div>
-        // We target the span inside the float-sm-right div which is inside identifiers
         const idLocator = this.page.locator('.identifiers .float-sm-right span');
-        // Wait for it to be attached and visible
         await idLocator.waitFor({ state: 'visible', timeout: 10000 });
         return await idLocator.innerText();
     }
@@ -153,5 +140,24 @@ export class RegisterPatientPage {
 
     async clickUnidentifiedPatient() {
         await this.unidentifiedPatientCheckbox.click();
+    }
+
+    async addRelationship(relationshipType: string, personName: string) {
+        await this.relationshipTypeSelect.selectOption({ label: relationshipType });
+        await this.personNameInput.pressSequentially(personName, { delay: 100 });
+
+        // Wait for the autocomplete container first
+        const autocomplete = this.page.locator('.ui-autocomplete');
+        try {
+            await autocomplete.waitFor({ state: 'visible', timeout: 5000 });
+        } catch (e) {
+            console.log('Autocomplete container not found');
+        }
+
+        // Try a more relaxed selector
+        const suggestion = autocomplete.locator('li a').first();
+        await suggestion.waitFor({ state: 'visible', timeout: 5000 });
+        await suggestion.click();
+        await this.nextButton.click();
     }
 }
