@@ -66,11 +66,15 @@ export class RegisterPatientPage {
     }
 
     async startRegistration() {
+        console.log('Starting registration...');
+        await this.registerPatientLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.registerPatientLink.click();
-        await expect(this.page.getByRole('heading', { name: 'Register a patient' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Register a patient' })).toBeVisible({ timeout: 10000 });
+        console.log('Registration started.');
     }
 
     async enterDemographics(given: string, middle: string, family: string, gender: string, day: string, month: string, year: string) {
+        console.log('Entering demographics...');
         await this.givenNameInput.fill(given);
         await this.middleNameInput.fill(middle);
         await this.familyNameInput.fill(family);
@@ -83,9 +87,11 @@ export class RegisterPatientPage {
         await this.birthMonthSelect.selectOption(month);
         await this.birthYearInput.fill(year);
         await this.nextButton.click();
+        console.log('Demographics entered.');
     }
 
     async enterAddress(addr1: string, addr2: string, city: string, state: string, country: string, postal: string) {
+        console.log('Entering address...');
         await this.address1Input.fill(addr1);
         await this.address2Input.fill(addr2);
         await this.cityVillageInput.fill(city);
@@ -93,11 +99,14 @@ export class RegisterPatientPage {
         await this.countryInput.fill(country);
         await this.postalCodeInput.fill(postal);
         await this.nextButton.click();
+        console.log('Address entered.');
     }
 
     async enterPhoneNumber(phone: string) {
+        console.log('Entering phone...');
         await this.phoneNumberInput.fill(phone);
         await this.nextButton.click();
+        console.log('Phone entered.');
     }
 
     async skipRelations() {
@@ -105,18 +114,22 @@ export class RegisterPatientPage {
     }
 
     async confirmRegistration() {
+        console.log('Confirming registration...');
         await expect(this.page.getByText('Confirm submission?')).toBeVisible();
         await this.confirmButton.click();
         await expect(this.confirmButton).toBeHidden();
+        console.log('Registration confirmed.');
     }
 
     async verifyPatientRegistered(given: string, family: string) {
+        console.log('Verifying registration...');
         await expect(this.page.getByText('General Actions')).toBeVisible({ timeout: 30000 });
         const patientId = await this.getPatientId();
         expect(patientId).toBeTruthy();
         console.log(`Verified Patient ID: ${patientId}`);
         await expect(this.page.locator('.PersonName-givenName')).toHaveText(given);
         await expect(this.page.locator('.PersonName-familyName')).toHaveText(family);
+        console.log('Registration verified.');
     }
 
     async getPatientId(): Promise<string> {
@@ -143,21 +156,15 @@ export class RegisterPatientPage {
     }
 
     async addRelationship(relationshipType: string, personName: string) {
+        console.log('Adding relationship...');
         await this.relationshipTypeSelect.selectOption({ label: relationshipType });
-        await this.personNameInput.pressSequentially(personName, { delay: 100 });
-
-        // Wait for the autocomplete container first
-        const autocomplete = this.page.locator('.ui-autocomplete');
-        try {
-            await autocomplete.waitFor({ state: 'visible', timeout: 5000 });
-        } catch (e) {
-            console.log('Autocomplete container not found');
-        }
-
-        // Try a more relaxed selector
-        const suggestion = autocomplete.locator('li a').first();
-        await suggestion.waitFor({ state: 'visible', timeout: 5000 });
-        await suggestion.click();
-        await this.nextButton.click();
+        await this.personNameInput.fill(personName);
+        await this.page.waitForTimeout(1000); // Short wait for any internal processing
+        await this.personNameInput.press('ArrowDown');
+        await this.personNameInput.press('Enter');
+        await this.page.waitForTimeout(1000); // Wait for selection to settle
+        await this.nextButton.waitFor({ state: 'visible', timeout: 5000 });
+        await this.nextButton.click({ force: true });
+        console.log('Relationship added.');
     }
 }

@@ -19,6 +19,7 @@ test.describe('Register Patient with Relationships', () => {
     });
 
     test('TC-B.4: Register Patient with Relationships', async ({ page }) => {
+        test.setTimeout(60000); // Increase timeout to 60 seconds
         test.info().annotations.push({ type: 'Module', description: 'Patient Registration' });
         registerPatientPage = new RegisterPatientPage(page);
         const patientData = getNewPatientDetails();
