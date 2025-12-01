@@ -20,7 +20,7 @@ test.describe('Patient Registration', () => {
         await loginPage.login(loginData.validUser.username, loginData.validUser.password, loginData.validUser.location);
     });
 
-    test('Register a new patient with valid details', async ({ page }) => {
+    test('TC-B.1 Register a new patient with valid details', async ({ page }) => {
         test.info().annotations.push({ type: 'Module', description: 'Patient Registration' });
         registerPatientPage = new RegisterPatientPage(page);
         const patientData = getNewPatientDetails();
