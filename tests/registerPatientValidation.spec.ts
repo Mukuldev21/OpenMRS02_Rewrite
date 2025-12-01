@@ -55,4 +55,30 @@ test.describe('Patient Registration Validation', () => {
         await registerPatientPage.birthYearInput.fill(patientData.birthYear);
         await registerPatientPage.nextButton.click();
     });
+
+    test('TC-B.6: Register Patient - Future Birthdate', async ({ page }) => {
+        test.info().annotations.push({ type: 'Module', description: 'Patient Registration' });
+        registerPatientPage = new RegisterPatientPage(page);
+        const patientData = getNewPatientDetails();
+
+        await registerPatientPage.startRegistration();
+
+        // Fill Name to proceed
+        await registerPatientPage.givenNameInput.fill(patientData.givenName);
+        await registerPatientPage.familyNameInput.fill(patientData.familyName);
+        await registerPatientPage.nextButton.click();
+
+        // Select Gender to proceed
+        await registerPatientPage.genderSelect.selectOption(patientData.gender);
+        await registerPatientPage.nextButton.click();
+
+        // Fill Future Birthdate
+        await registerPatientPage.birthDayInput.fill('14');
+        await registerPatientPage.birthMonthSelect.selectOption('9');
+        await registerPatientPage.birthYearInput.fill('2027'); // Future year
+        await registerPatientPage.nextButton.click();
+
+        // Verify Error
+        await registerPatientPage.verifyBirthdateFutureError();
+    });
 });

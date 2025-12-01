@@ -31,6 +31,7 @@ export class RegisterPatientPage {
     readonly familyNameError: Locator;
     readonly genderError: Locator;
     readonly birthdateError: Locator;
+    readonly birthdateFutureError: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -63,6 +64,7 @@ export class RegisterPatientPage {
         this.familyNameError = page.locator('span.field-error').filter({ hasText: 'Required' }).nth(1);
         this.genderError = page.locator('span.field-error').filter({ hasText: 'Required' });
         this.birthdateError = page.locator('span.field-error').filter({ hasText: 'Required' });
+        this.birthdateFutureError = page.locator('span.field-error').filter({ hasText: 'Maximum' });
     }
 
     async startRegistration() {
@@ -149,6 +151,10 @@ export class RegisterPatientPage {
 
     async verifyBirthdateValidationError() {
         await expect(this.birthdateError).toBeVisible();
+    }
+
+    async verifyBirthdateFutureError() {
+        await expect(this.birthdateFutureError).toBeVisible();
     }
 
     async clickUnidentifiedPatient() {
