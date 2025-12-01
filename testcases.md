@@ -20,8 +20,7 @@
 | **TC-B.4** | Register Patient with Relationships | Register a patient and add a relative/relationship during the flow. | ⬜ Proposed |
 | **TC-B.5** | Register Patient - Navigation | Verify navigation between sections using the left-side menu (Demographics, Contact Info, etc.). | ⬜ Proposed |
 | **TC-B.6** | Register Patient - Future Birthdate | Verify error/validation when entering a future birthdate. | ⬜ Proposed |
-| **TC-B.7** | Register Patient - Invalid Phone Number | Verify validation for invalid phone number formats. | ⬜ Proposed |
-| **TC-B.8** | Cancel Registration | Verify functionality of the cancel/discard button during registration. | ⬜ Proposed |
+| **TC-B.7** | Cancel Registration | Verify functionality of the cancel/discard button during registration. | ⬜ Proposed |
 
 ## Module C: Find Patient (Future)
 

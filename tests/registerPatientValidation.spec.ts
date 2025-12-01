@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { RegisterPatientPage } from '../pages/RegisterPatientPage';
 import { LoginPage } from '../pages/LoginPage';
 import { loginData } from '../fixtures/LoginData';
@@ -80,5 +80,49 @@ test.describe('Patient Registration Validation', () => {
 
         // Verify Error
         await registerPatientPage.verifyBirthdateFutureError();
+    });
+
+    test('TC-B.7: Cancel Registration', async ({ page }) => {
+        test.info().annotations.push({ type: 'Module', description: 'Patient Registration' });
+        registerPatientPage = new RegisterPatientPage(page);
+        const patientData = getNewPatientDetails();
+
+        await registerPatientPage.startRegistration();
+
+        // Fill Name
+        await registerPatientPage.givenNameInput.fill(patientData.givenName);
+        await registerPatientPage.familyNameInput.fill(patientData.familyName);
+        await registerPatientPage.nextButton.click();
+
+        // Select Gender
+        await registerPatientPage.genderSelect.selectOption(patientData.gender);
+        await registerPatientPage.nextButton.click();
+
+        // Fill Birthdate
+        await registerPatientPage.birthDayInput.fill(patientData.birthDay);
+        await registerPatientPage.birthMonthSelect.selectOption(patientData.birthMonth);
+        await registerPatientPage.birthYearInput.fill(patientData.birthYear);
+        await registerPatientPage.nextButton.click();
+
+        // Fill Address
+        await registerPatientPage.address1Input.fill(patientData.address1);
+        await registerPatientPage.cityVillageInput.fill(patientData.city);
+        await registerPatientPage.stateProvinceInput.fill(patientData.state);
+        await registerPatientPage.countryInput.fill(patientData.country);
+        await registerPatientPage.postalCodeInput.fill(patientData.postalCode);
+        await registerPatientPage.nextButton.click();
+
+        // Fill Phone
+        await registerPatientPage.phoneNumberInput.fill(patientData.phoneNumber);
+        await registerPatientPage.nextButton.click();
+
+        // Skip Relations
+        await registerPatientPage.nextButton.click();
+
+        // Cancel Registration
+        await registerPatientPage.cancelRegistration();
+
+        // Verify return to start
+        await expect(page.getByRole('heading', { name: 'Register a patient' })).toBeVisible();
     });
 });

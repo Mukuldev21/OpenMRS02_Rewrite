@@ -20,6 +20,7 @@ export class RegisterPatientPage {
     readonly postalCodeInput: Locator;
     readonly phoneNumberInput: Locator;
     readonly confirmButton: Locator;
+    readonly cancelButton: Locator;
     readonly patientIdContainer: Locator;
 
     // Relationship Locators
@@ -53,6 +54,7 @@ export class RegisterPatientPage {
         this.postalCodeInput = page.locator('#postalCode');
         this.phoneNumberInput = page.getByRole('textbox', { name: 'What\'s the patient phone' });
         this.confirmButton = page.getByRole('button', { name: 'Confirm' });
+        this.cancelButton = page.getByRole('button', { name: 'Cancel' });
         this.patientIdContainer = page.locator('div').filter({ hasText: 'Patient ID' }).nth(3);
 
         // Relationship Locators
@@ -121,6 +123,12 @@ export class RegisterPatientPage {
         await this.confirmButton.click();
         await expect(this.confirmButton).toBeHidden();
         console.log('Registration confirmed.');
+    }
+
+    async cancelRegistration() {
+        console.log('Cancelling registration...');
+        await this.cancelButton.click();
+        console.log('Registration cancelled.');
     }
 
     async verifyPatientRegistered(given: string, family: string) {
