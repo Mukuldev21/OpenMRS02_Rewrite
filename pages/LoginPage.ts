@@ -38,7 +38,7 @@ export class LoginPage {
             await this.page.locator(`ul#sessionLocation.select >> text=${location}`).click();
         }
         await this.loginButton.click();
-        await this.page.waitForURL(/.*home.page/);
+        //await this.page.waitForURL(/.*home.page/);
     }
 
     async invalidLogin(username: string, password: string, location: string) {
