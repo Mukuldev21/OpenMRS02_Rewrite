@@ -79,4 +79,8 @@ export class HomePage {
             expect(this.systemAdministrationApp).toBeVisible(),
         ]);
     }
+
+    async navigateToFindPatientRecord() {
+        await this.findPatientRecordApp.click();
+    }
 }
