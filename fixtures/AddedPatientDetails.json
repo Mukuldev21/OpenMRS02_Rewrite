@@ -185,5 +185,39 @@
     "country": "USA",
     "postalCode": "93838",
     "phoneNumber": "66039973"
+  },
+  "Patient12": {
+    "patientId": "100HVL",
+    "givenName": "Jennifer",
+    "middleName": "kgKdp",
+    "familyName": "Smith",
+    "gender": "M",
+    "birthDay": "4",
+    "birthMonth": "8",
+    "birthYear": "2006",
+    "address1": "27 RdtBeC St",
+    "address2": "Apt 40",
+    "city": "San Antonio",
+    "state": "IO",
+    "country": "USA",
+    "postalCode": "13485",
+    "phoneNumber": "75586140"
+  },
+  "Patient13": {
+    "patientId": "100J0C",
+    "givenName": "William",
+    "middleName": "tnpGM",
+    "familyName": "Jackson",
+    "gender": "M",
+    "birthDay": "18",
+    "birthMonth": "2",
+    "birthYear": "2006",
+    "address1": "439 tjQfJq St",
+    "address2": "Apt 96",
+    "city": "New York",
+    "state": "MZ",
+    "country": "USA",
+    "postalCode": "57227",
+    "phoneNumber": "39080651"
   }
 }

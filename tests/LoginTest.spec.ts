@@ -30,7 +30,7 @@ test.describe('Login Tests', () => {
         });
 
         test('TC-A.2: Invalid Credential Login', async () => {
-            await loginPage.login(invalidUser.username, invalidUser.password, invalidUser.location);
+            await loginPage.invalidLogin(invalidUser.username, invalidUser.password, invalidUser.location);
             await loginPage.errorMessage.isVisible();
             await loginPage.assertErrorMessage(errorMessages.invalidCredentials);
         });

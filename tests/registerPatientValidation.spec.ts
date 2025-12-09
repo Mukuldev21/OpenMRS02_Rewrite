@@ -10,12 +10,12 @@ test.describe('Patient Registration Validation', () => {
     let loginPage: LoginPage;
 
     // Use empty storage state to ensure no pre-existing auth interferes
-    test.use({ storageState: { cookies: [], origins: [] } });
+    // test.use({ storageState: { cookies: [], origins: [] } });
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.navigate();
-        await loginPage.login(loginData.validUser.username, loginData.validUser.password, loginData.validUser.location);
+        // Navigate to home page - authentication is handled by global setup
+        await page.goto('/openmrs/index.htm');
     });
 
     test('TC-B.2: Register Patient - Required Fields Validation', async ({ page }) => {
