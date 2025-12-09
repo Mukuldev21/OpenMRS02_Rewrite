@@ -15,13 +15,11 @@ export function getNewPatientDetails() {
     const getRandomElement = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 
     // Generate a unique middle name to ensure overall uniqueness
-    const middleName = randomString(5);
     const givenName = getRandomElement(givenNames);
     const familyName = getRandomElement(familyNames);
 
     return {
         givenName: givenName,
-        middleName: middleName, // Using random middle name for uniqueness
         familyName: familyName,
         gender: Math.random() > 0.5 ? "M" : "F",
         birthDay: (Math.floor(Math.random() * 28) + 1).toString(),

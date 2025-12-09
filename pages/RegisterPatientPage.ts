@@ -5,7 +5,6 @@ export class RegisterPatientPage {
     readonly registerPatientLink: Locator;
     readonly unidentifiedPatientCheckbox: Locator;
     readonly givenNameInput: Locator;
-    readonly middleNameInput: Locator;
     readonly familyNameInput: Locator;
     readonly nextButton: Locator;
     readonly genderSelect: Locator;
@@ -40,7 +39,6 @@ export class RegisterPatientPage {
         this.registerPatientLink = page.getByRole('link', { name: 'Register a patient', exact: false });
         this.unidentifiedPatientCheckbox = page.locator('#checkbox-unknown-patient');
         this.givenNameInput = page.getByRole('textbox', { name: 'Given (required)' });
-        this.middleNameInput = page.getByRole('textbox', { name: 'Middle' });
         this.familyNameInput = page.getByRole('textbox', { name: 'Family Name (required)' });
         this.nextButton = page.locator('#next-button');
         this.genderSelect = page.getByLabel('What\'s the patient\'s gender');
@@ -79,10 +77,9 @@ export class RegisterPatientPage {
         console.log('Registration started.');
     }
 
-    async enterDemographics(given: string, middle: string, family: string, gender: string, day: string, month: string, year: string) {
+    async enterDemographics(given: string, family: string, gender: string, day: string, month: string, year: string) {
         console.log('Entering demographics...');
         await this.givenNameInput.fill(given);
-        await this.middleNameInput.fill(middle);
         await this.familyNameInput.fill(family);
         await this.nextButton.click();
 
