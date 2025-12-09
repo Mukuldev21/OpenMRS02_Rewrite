@@ -74,9 +74,30 @@ if (targetFiles.length === 0 && !testGrep) {
 
 console.log(`\nExecuting: ${command}\n`);
 
+const startTime = Date.now();
+let success = true;
+
 try {
     execSync(command, { stdio: 'inherit' });
 } catch (error) {
+    success = false;
     console.error('\nTest execution failed.');
-    process.exit(1);
+} finally {
+    const endTime = Date.now();
+    const durationSeconds = (endTime - startTime) / 1000;
+
+    console.log('\n--------------------------------------------------');
+    if (durationSeconds > 60) {
+        const minutes = Math.floor(durationSeconds / 60);
+        const seconds = Math.floor(durationSeconds % 60);
+        const minuteText = minutes === 1 ? 'minute' : 'minutes';
+        console.log(`Total Execution Time: ${minutes} ${minuteText} and ${seconds} seconds`);
+    } else {
+        console.log(`Total Execution Time: ${durationSeconds.toFixed(2)} seconds`);
+    }
+    console.log('--------------------------------------------------\n');
+
+    if (!success) {
+        process.exit(1);
+    }
 }
