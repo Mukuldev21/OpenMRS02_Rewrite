@@ -33,6 +33,10 @@ test.describe('Find Patient Record Tests', () => {
 
         await findPatientPage.selectPatient(patientName);
         await expect(page).toHaveURL(/.*patient.page/);
+
+        // Assert on the page
+        // Wait for page content to load and check for name in the body
+        await expect(page.locator('body')).toContainText(patientName, { timeout: 30000 });
     });
 
     test('TC-C.2: Search by Patient ID', async ({ page }) => {
@@ -43,6 +47,13 @@ test.describe('Find Patient Record Tests', () => {
         await findPatientPage.navigateToFindPatientRecord();
         await findPatientPage.searchByPatient(patientId);
         await findPatientPage.verifyPatientVisible(patientId);
+
+        // Click on the patient to go to dashboard (needed to assert ID on dashboard)
+        await findPatientPage.selectPatient(patientId);
+        await expect(page).toHaveURL(/.*patient.page/);
+
+        // Assert ID is visible
+        await expect(page.getByText(patientId)).toBeVisible();
 
         await findPatientPage.goHome();
     });
