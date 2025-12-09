@@ -12,6 +12,7 @@ export class RegisterPatientPage {
     readonly birthDayInput: Locator;
     readonly birthMonthSelect: Locator;
     readonly birthYearInput: Locator;
+    readonly registrationHeader: Locator;
     readonly address1Input: Locator;
     readonly address2Input: Locator;
     readonly cityVillageInput: Locator;
@@ -46,6 +47,7 @@ export class RegisterPatientPage {
         this.birthDayInput = page.getByRole('textbox', { name: 'Day (required)' });
         this.birthMonthSelect = page.getByLabel('Month (required)');
         this.birthYearInput = page.getByRole('textbox', { name: 'Year (required)' });
+        this.registrationHeader = page.getByRole('heading', { name: /Register a patient/i });
         this.address1Input = page.locator('#address1');
         this.address2Input = page.locator('#address2');
         this.cityVillageInput = page.locator('#cityVillage');
@@ -73,7 +75,7 @@ export class RegisterPatientPage {
         console.log('Starting registration...');
         await this.registerPatientLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.registerPatientLink.click();
-        await expect(this.page.getByRole('heading', { name: 'Register a patient' })).toBeVisible({ timeout: 10000 });
+        await expect(this.registrationHeader).toBeVisible({ timeout: 10000 });
         console.log('Registration started.');
     }
 

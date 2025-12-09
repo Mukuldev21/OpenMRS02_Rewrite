@@ -123,6 +123,6 @@ test.describe('Patient Registration Validation', () => {
         await registerPatientPage.cancelRegistration();
 
         // Verify return to start
-        await expect(page.getByRole('heading', { name: 'Register a patient' })).toBeVisible();
+        await expect(registerPatientPage.registrationHeader).toBeVisible();
     });
 });

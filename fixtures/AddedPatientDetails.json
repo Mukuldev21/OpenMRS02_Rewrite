@@ -168,5 +168,22 @@
     "country": "USA",
     "postalCode": "34705",
     "phoneNumber": "14471816"
+  },
+  "Patient11": {
+    "patientId": "100HTR",
+    "givenName": "James",
+    "middleName": "YPLPg",
+    "familyName": "Rodriguez",
+    "gender": "M",
+    "birthDay": "17",
+    "birthMonth": "10",
+    "birthYear": "1993",
+    "address1": "423 oZOTeM St",
+    "address2": "Apt 1",
+    "city": "Chicago",
+    "state": "AR",
+    "country": "USA",
+    "postalCode": "93838",
+    "phoneNumber": "66039973"
   }
 }
