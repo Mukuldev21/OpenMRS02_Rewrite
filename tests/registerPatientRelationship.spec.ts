@@ -29,7 +29,6 @@ test.describe('Register Patient with Relationships', () => {
         // Fill Demographics
         await registerPatientPage.enterDemographics(
             patientData.givenName,
-            patientData.middleName,
             patientData.familyName,
             patientData.gender,
             patientData.birthDay,

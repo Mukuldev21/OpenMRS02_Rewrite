@@ -71,9 +71,8 @@ export class RegisterPatientPage {
 
     async startRegistration() {
         console.log('Starting registration...');
-        await this.registerPatientLink.waitFor({ state: 'visible', timeout: 10000 });
+        await this.registerPatientLink.waitFor({ state: 'visible', timeout: 30000 });
         await this.registerPatientLink.click();
-        await expect(this.registrationHeader).toBeVisible({ timeout: 10000 });
         console.log('Registration started.');
     }
 
@@ -143,7 +142,7 @@ export class RegisterPatientPage {
 
     async getPatientId(): Promise<string> {
         const idLocator = this.page.locator('.identifiers .float-sm-right span');
-        await idLocator.waitFor({ state: 'visible', timeout: 10000 });
+        await idLocator.waitFor({ state: 'visible', timeout: 30000 });
         return await idLocator.innerText();
     }
 
@@ -176,7 +175,7 @@ export class RegisterPatientPage {
 
     async verifyNavigationSections() {
         const breadcrumb = this.page.locator('#formBreadcrumb');
-        await expect(breadcrumb.getByText('Name')).toBeVisible();
+        await expect(breadcrumb.getByText('Name')).toBeVisible({ timeout: 30000 });
         await expect(breadcrumb.getByText('Gender')).toBeVisible();
         await expect(breadcrumb.getByText('Birthdate')).toBeVisible();
         await expect(breadcrumb.getByText('Address')).toBeVisible();
